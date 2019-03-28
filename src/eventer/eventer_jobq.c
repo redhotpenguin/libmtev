@@ -693,6 +693,8 @@ jobq_thread_should_terminate(eventer_jobq_t *jobq, mtev_boolean want_reduce) {
   }
   return mtev_false;
 }
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclobbered"
 void *
 eventer_jobq_consumer(eventer_jobq_t *jobq) {
   eventer_job_t *job;
@@ -915,6 +917,7 @@ static void jobq_fire_blanks(eventer_jobq_t *jobq, int n) {
     eventer_jobq_enqueue(jobq, job, NULL);
   }
 }
+#pragma GCC diagnostic pop
 
 void eventer_jobq_ping(eventer_jobq_t *jobq) {
   jobq_fire_blanks(jobq, 1);
